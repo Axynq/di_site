@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Для тебе ♥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Manrope:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #130208;
+      --bg-mid: #1e0410;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --ruby: #c0152a;
+      --rose: #e8294a;
+      --blush: #ff6b8a;
+      --cream: #f5e6e9;
+      --muted: rgba(245, 230, 233, 0.55);
+      --gold: #d4a373;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bot: env(safe-area-inset-bottom, 0px);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--cream);
+      font-family: 'Manrope', sans-serif;
+      font-weight: 300;
+      max-width: 430px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 150px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Only the first screen fills the full viewport */
+    #hero {
+      min-height: 100dvh;
+      padding-top: calc(48px + var(--safe-top));
+      padding-bottom: 48px;
+    }
+
+    /* ─── TAP HEARTS ─── */
+    .tap-heart {
+      position: fixed;
+      pointer-events: none;
+      font-size: 22px;
+      animation: floatUp 1.4s ease-out forwards;
+      z-index: 999;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-140px) scale(0.4);
+      }
+    }
+
+    /* ═══════════════════════════════
+       ЕКРАН 1 — HERO + СТРІЛКА
+    ═══════════════════════════════ */
+    #hero {
+      background: radial-gradient(ellipse at 50% 60%, #2d0812 0%, var(--bg-deep) 70%);
+      text-align: center;
+      gap: 0;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(2.4rem, 10vw, 3.2rem);
+      font-weight: 400;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s 0.3s ease forwards;
+    }
+
+    .hero-sub {
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s 0.7s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─── GIF HEART ─── */
+    .heart-gif-wrap {
+      position: relative;
+      margin: 20px auto 0;
+      width: 220px;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s ease forwards;
+    }
+
+    /* Glow behind gif — using a pseudo element, NOT filter, so gif stays animated */
+    .heart-gif-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 15%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(192, 21, 42, 0.5) 0%, transparent 70%);
+      pointer-events: none;
+      animation: glowPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+    }
+
+    .heart-gif {
+      width: 220px;
+      height: auto;
+      display: block;
+      position: relative;
+    }
+
+    /* Scroll hint */
+    .scroll-hint {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s 2.8s ease forwards;
+    }
+
+    .scroll-arrow {
+      width: 18px;
+      height: 18px;
+      border-right: 1.5px solid var(--muted);
+      border-bottom: 1.5px solid var(--muted);
+      transform: rotate(45deg);
+      animation: bounce 1.6s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: rotate(45deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(45deg) translateY(5px);
+      }
+    }
+
+    /* ═══════════════════════════════
+       ЕКРАН 2 — ЛИСТ
+    ═══════════════════════════════ */
+    #letter {
+      background: linear-gradient(175deg, var(--bg-mid) 0%, var(--bg-deep) 100%);
+      gap: 28px;
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--cream);
+    }
+
+    .letter-text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 340px;
+    }
+
+    .letter-text em {
+      color: var(--cream);
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose), transparent);
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════
+       ЕКРАН 3 — ФІНАЛ / КОНВЕРТ
+    ═══════════════════════════════ */
+    #finale {
+      background: radial-gradient(ellipse at 50% 70%, #2d0812 0%, var(--bg-deep) 70%);
+      text-align: center;
+      gap: 32px;
+      padding-bottom: calc(350px + var(--safe-bot));
+    }
+
+    /* ─── Envelope ─── */
+    .envelope-wrap {
+      perspective: 600px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      position: relative;
+      margin-top: 56px;
+    }
+
+    .envelope {
+      width: 240px;
+      height: 160px;
+      position: relative;
+    }
+
+    /* Back wall of envelope */
+    .env-body {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #2b0712, #1b040b);
+      border-radius: 6px 6px 14px 14px;
+      border: 1px solid rgba(192, 21, 42, 0.35);
+      box-shadow: 0 8px 40px rgba(192, 21, 42, 0.25);
+      z-index: 1;
+    }
+
+    /* Front pocket — covers lower part of letter when it slides in/out */
+    .env-front {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      border-radius: 6px 6px 14px 14px;
+      overflow: hidden;
+    }
+
+    .env-front svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Flap: closes AFTER letter goes inside (0.38s delay) */
+    .env-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      overflow: hidden;
+      transform-origin: top center;
+      transform: perspective(600px) rotateX(0deg);
+      z-index: 4;
+      transition: transform 0.5s 0.38s ease-out, z-index 0s 0.38s;
+    }
+
+    .env-flap svg {
+      display: block;
+    }
+
+    /* Opens immediately (0.05s) and drops behind letter once past vertical */
+    .envelope-wrap.opened .env-flap {
+      transform: perspective(600px) rotateX(180deg);
+      z-index: 1;
+      transition: transform 0.5s 0.05s ease-out, z-index 0s 0.28s;
+    }
+
+    /* Seal: reappears after flap closes */
+    .env-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: var(--ruby);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 16px rgba(192, 21, 42, 0.6);
+      z-index: 5;
+      opacity: 1;
+      transition: opacity 0.25s 0.72s ease;
+    }
+
+    .envelope-wrap.opened .env-seal {
+      opacity: 0;
+      transition: opacity 0.2s 0s ease;
+    }
+
+    /* Letter clip — extends above the envelope so the letter can rise high, while clipping below */
+    .env-letter-clip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      overflow: hidden;
+      pointer-events: none;
+      border-radius: 6px 6px 14px 14px;
+      z-index: 2;
+    }
+
+    /* Closed state: slides down FIRST (0s delay) before flap closes */
+    .env-letter {
+      position: absolute;
+      bottom: 18px;
+      left: 16px;
+      right: 16px;
+      min-height: 125px;
+      background: var(--cream);
+      border-radius: 6px;
+      padding: 22px 14px 44px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #2d0812;
+      line-height: 1.55;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      opacity: 0;
+      transform: translateY(180px);
+      transition: transform 0.45s 0s ease-in, opacity 0.2s 0.25s ease;
+    }
+
+    /* Opened state: rises high AFTER flap opens, bottom stays tucked in pocket */
+    .envelope-wrap.opened .env-letter {
+      opacity: 1;
+      transform: translateY(-48px);
+      transition: transform 0.55s 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s 0.35s ease;
+    }
+
+    /* Tap hint */
+    .open-hint {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      animation: pulse 2s infinite;
+    }
+
+    .envelope-wrap.opened~.open-hint {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .finale-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── AMBIENT PARTICLES ─── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      bottom: -20px;
+      opacity: 0;
+      animation: riseParticle linear infinite;
+    }
+
+    @keyframes riseParticle {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.6);
+      }
+
+      15% {
+        opacity: 0.5;
+      }
+
+      85% {
+        opacity: 0.3;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-110vh) scale(0.3);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="particles" id="particles"></div>
+
+  <!-- ═══ ЕКРАН 1: HERO ═══ -->
+  <section id="hero">
+    <p class="hero-sub">Speziell für dich</p>
+    <h1 class="hero-title">Ти покорила<br>моє серце</h1>
+
+    <div class="heart-gif-wrap">
+      <img src="heart.gif" alt="серце" class="heart-gif">
+    </div>
+
+    <div class="scroll-hint">
+      <span>Гортай вниз</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══ ЕКРАН 2: ЛИСТ ═══ -->
+  <section id="letter">
+    <div class="reveal">
+      <p class="section-eyebrow">Трошки слів</p>
+      <h2 class="section-title">Увага, дякую за увагу ахаха</h2>
+    </div>
+
+    <div class="divider reveal"></div>
+
+    <p class="letter-text reveal">
+      Вирішив зробити для тебе щось прикольне, щоб трохи підняти тобі настрій.<br><br>
+      Мені подобається твоя посмішка, шкода, що я не побачу її зараз)<br><br>
+      Сьогодні я не казав тобі цього ще, так от, <em>ти молодець!</em>.
+      А ще якщо тицяти по екрану то сердечки вилітати будуть ахахаха
+    </p>
+
+    <div class="divider reveal"></div>
+  </section>
+
+  <!-- ═══ ЕКРАН 3: ФІНАЛ / КОНВЕРТ ═══ -->
+  <section id="finale">
+    <div class="reveal">
+      <p class="section-eyebrow">Останнє</p>
+      <h2 class="section-title">Є одне<br>послання…</h2>
+    </div>
+
+    <div class="envelope-wrap reveal" id="envelopeWrap" role="button" aria-label="Відкрити конверт">
+      <div class="envelope">
+        <div class="env-body"></div>
+
+        <!-- Front pocket sits over the lower part of the rising letter -->
+        <div class="env-front">
+          <svg viewBox="0 0 240 160" width="240" height="160" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pocketGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#3a0a18" />
+                <stop offset="100%" stop-color="#250610" />
+              </linearGradient>
+            </defs>
+            <polygon points="0,0 120,90 0,160" fill="#320815" />
+            <polygon points="240,0 120,90 240,160" fill="#2d0713" />
+            <polygon points="0,160 120,78 240,160" fill="url(#pocketGrad)" stroke="rgba(192,21,42,0.28)"
+              stroke-width="1" />
+          </svg>
+        </div>
+
+        <div class="env-flap">
+          <svg viewBox="0 0 240 90" width="240" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="0,0 240,0 120,90" fill="#3a0a18" stroke="rgba(192,21,42,0.3)" stroke-width="1" />
+          </svg>
+        </div>
+
+        <div class="env-seal">❤️</div>
+      </div>
+
+      <!-- Letter clip sits between .env-body (z:1) and .env-front (z:3) -->
+      <div class="env-letter-clip">
+        <div class="env-letter">
+          Я радий, що зірки звели нас.<br>
+          І не забудь послухати пісеньки, цілую хахаха)
+        </div>
+      </div>
+    </div>
+
+    <p class="open-hint reveal" id="openHint">тапни хомячка</p>
+  </section>
+
+
+  <script>
+    // ─── TAP HEARTS ─────────────────────────────────────
+    document.addEventListener('click', (e) => {
+      const hearts = ['❤️', '🩷', '💖', '💗'];
+      const el = document.createElement('span');
+      el.className = 'tap-heart';
+      el.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      el.style.left = (e.clientX - 12) + 'px';
+      el.style.top = (e.clientY - 12) + 'px';
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    });
+
+
+    // ─── SCROLL REVEAL ──────────────────────────────────
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+
+    // ─── ENVELOPE ───────────────────────────────────────
+    const envelopeWrap = document.getElementById('envelopeWrap');
+    const openHint = document.getElementById('openHint');
+
+    envelopeWrap.addEventListener('click', function (e) {
+      e.stopPropagation();
+      this.classList.toggle('opened');
+      if (this.classList.contains('opened')) {
+        openHint.style.opacity = '0';
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => {
+            const h = document.createElement('span');
+            h.className = 'tap-heart';
+            h.textContent = '❤️';
+            const rect = this.getBoundingClientRect();
+            h.style.left = (rect.left + rect.width / 2 + (Math.random() - 0.5) * 100) + 'px';
+            h.style.top = (rect.top + rect.height / 2) + 'px';
+            document.body.appendChild(h);
+            h.addEventListener('animationend', () => h.remove());
+          }, i * 80);
+        }
+      } else {
+        openHint.style.opacity = '';
+      }
+    });
+
+
+    // ─── AMBIENT PARTICLES ──────────────────────────────
+    const container = document.getElementById('particles');
+    const symbols = ['♥', '·', '✦', '·', '♥', '✧'];
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('span');
+      p.className = 'particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.fontSize = (8 + Math.random() * 10) + 'px';
+      p.style.color = `hsl(${340 + Math.random() * 20}, 70%, ${55 + Math.random() * 20}%)`;
+      p.style.animationDuration = (12 + Math.random() * 18) + 's';
+      p.style.animationDelay = -(Math.random() * 20) + 's';
+      container.appendChild(p);
+    }
+  </script>
+</body>
+
+</html>
